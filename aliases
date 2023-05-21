@@ -1,63 +1,68 @@
-#! /usr/bin/env sh
 # include in .bashrc or .zshrc with source /path/to/this/file
-alias sudo="sudo "
-alias l="ls -laFh --time-style=long-iso --color=auto"
-alias wtfismyip="echo 'IPv4'; curl -m 5 yaml.ipv4.myip.wtf; echo; echo 'IPv6'; curl -m 5 yaml.ipv6.myip.wtf"
+
+# most of the stuff is from https://pastebin.com/hZzV308p
+
+alias sudo="sudo " # need it for aliases to work with sudo
+alias cd..="cd .." # fix/prevent cd fck ups
 
 # auto cd TODO: add zsh version
-# shopt -s autocd
+#shopt -s autocd
 
-# doas
-if [ -f /usr/bin/doas ]; then
-	complete -cf doas
-	alias sudo="doas "
-	alias sudoedit="doas rnano"
-fi
-
-# from https://pastebin.com/hZzV308p
-alias cd..="cd .."
-alias ..="cd .."
-alias back="cd $OLDPWD"
-alias c="clear"
-alias h="history"
-alias j="jobs -l"
+# Default parameters
 alias df="df -h --exclude=squashfs"
-alias egrep="egrep --colour=auto"
 alias grep="grep --color=auto"
-alias lsmount="mount | column -t"
-alias ports="netstat -tulanp"
+alias egrep="egrep --colour=auto"
 alias wget="wget -c"
 alias mkdir="mkdir -pv"
-alias time="/usr/bin/time -p"
-alias empty="truncate --size 0"
-
-# confirmation
+alias diff="diff -W $(tput cols)"
+## confirmation
 alias mv="mv -iv"
 alias cp="cp -iv"
 alias ln="ln -iv"
-
-# Preventing changes on /
+## Preventing changes on /
 alias rm="rm -I --preserve-root"
-alias chown="chown -c --preserve-root"
 alias chmod="chmod -c --preserve-root"
+alias chown="chown -c --preserve-root"
 alias chgrp="chgrp -c --preserve-root"
+
+# "Custom commands"
+alias wtfismyip="echo 'IPv4'; curl -m 5 yaml.ipv4.myip.wtf; echo; echo 'IPv6'; curl -m 5 yaml.ipv6.myip.wtf"
+ls_params="-lFh --time-style=long-iso --color=auto"
+alias la="ls -a $ls_params"
+alias ll="ls $ls_params"
+alias l="la"
+alias c="clear"
+alias h="history"
+alias j="jobs -l"
+alias back="cd $OLDPWD"
+alias lsmount="mount | column -t"
+alias lsports="netstat -tulanp"
+alias time="/usr/bin/time -p" 
+alias empty="truncate --size 0"
+
+# doas
+if [ -f /usr/bin/doas ]; then
+	#complete -cf doas # bash only
+    alias doas="doas "
+	alias sudo="doas "
+fi
 
 # Manage packages easier TODO: add support for other package managers
 if [ -f /usr/bin/apt ]; then
-  alias update="sudo apt update"
-  alias upgrade="sudo apt update && sudo apt full-upgrade"
-  alias install="sudo apt install"
+    alias update="sudo apt update"
+    alias upgrade="sudo apt update && sudo apt full-upgrade"
+    alias install="sudo apt install"
 fi
  
 if [ -f /usr/bin/pacman ]; then
-  alias update="sudo pacman -Sy"
-  alias upgrade="sudo pacman -Syu"
-  alias install="sudo pacman -S"
+    alias update="sudo pacman -Sy"
+    alias upgrade="sudo pacman -Syu"
+    alias install="sudo pacman -S"
 fi
 
 # Make a directory, then go there
 # TODO: zsh "defining function based on alias" error
-# md {
-#     test -n "$1" || return
-#     mkdir -p "$1" && cd "$1"
-# }
+#md {
+#    test -n "$1" || return
+#    mkdir -p "$1" && cd "$1"
+#}
