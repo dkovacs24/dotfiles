@@ -40,6 +40,12 @@ alias lsports="netstat -tulanp"
 alias time="/usr/bin/time -p" 
 alias empty="truncate --size 0"
 
+cheat () {
+    joined_args=$(echo "$@" | tr ' ' '-')
+    curl cheat.sh/$joined_args
+}
+
+
 # doas
 if [ -f /usr/bin/doas ]; then
 	#complete -cf doas # bash only
