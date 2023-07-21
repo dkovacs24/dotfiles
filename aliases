@@ -45,6 +45,13 @@ cheat () {
     curl cheat.sh/$joined_args
 }
 
+update-mirrors () {
+    if [[ ! -z $(command -v rate-mirrors) && ! -z $(command -v pacman) ]]; then
+        rate-mirrors arch | sudo tee /etc/pacman.d/mirrorlist
+    else
+        echo "Install rate-mirrors or you don't have pacman"
+    fi
+}
 
 # doas
 if [ -f /usr/bin/doas ]; then
