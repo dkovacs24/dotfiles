@@ -8,6 +8,14 @@ alias cd..="cd .." # fix/prevent cd fck ups
 # auto cd TODO: add zsh version
 #shopt -s autocd
 
+# Make a directory, then go there
+# TODO: zsh "defining function based on alias" error
+unalias md
+md () {
+    test -n "$1" || return
+    mkdir -pv "$1" && cd "$1"
+}
+
 # Default parameters
 alias df="df -h --exclude=squashfs"
 alias grep="grep --color=auto"
@@ -73,9 +81,4 @@ if [ -f /usr/bin/pacman ]; then
     alias install="sudo pacman -S"
 fi
 
-# Make a directory, then go there
-# TODO: zsh "defining function based on alias" error
-#md {
-#    test -n "$1" || return
-#    mkdir -p "$1" && cd "$1"
-#}
+
