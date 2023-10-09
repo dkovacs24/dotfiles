@@ -107,7 +107,14 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-################################################################################
-source ~/dotfiles/aliases
-
 setopt HIST_IGNORE_SPACE
+
+if [[ -f ~/aliases ]]; then
+    source ~/aliases
+fi
+
+if [[ -f ~/aliases.local ]]; then
+    source ~/aliases.local
+fi
+
+
