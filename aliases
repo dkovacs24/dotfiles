@@ -45,6 +45,7 @@ alias lsmount="mount | column -t"
 alias lsports="netstat -tulanp"
 alias time="/usr/bin/time -p"
 alias empty="truncate --size 0"
+alias dc="docker compose"
 
 cheat () {
     joined_args=$(echo "$@" | tr ' ' '-')
