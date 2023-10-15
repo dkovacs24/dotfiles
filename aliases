@@ -9,7 +9,9 @@ alias cd..="cd .." # fix/prevent cd mishaps
 #shopt -s autocd
 
 # Make a directory, then go there
-unalias md #incase oh-my-zsh adds another md alias and this md func throws an exception
+if [[ $(echo $SHELL | grep "zsh") ]]; then
+    unalias md #incase oh-my-zsh adds another md alias and this md func throws an exception
+fi
 md () {
     test -n "$1" || return
     mkdir -pv "$1" && cd "$1"
@@ -31,7 +33,7 @@ alias chmod="chmod -c --preserve-root"
 alias chown="chown -c --preserve-root"
 alias chgrp="chgrp -c --preserve-root"
 
-# ""Custom commands""
+# """""Custom""""" and shorter shorter
 alias wtfismyip="echo 'IPv4'; curl -sS -m 5 https://ipv4.yaml.myip.wtf; echo; echo 'IPv6'; curl -sS -m 5 https://ipv6.yaml.myip.wtf"
 ls_params="-lFh --time-style=long-iso --color=auto"
 alias la="ls -a $ls_params"
@@ -46,6 +48,7 @@ alias lsports="netstat -tulanp"
 alias time="/usr/bin/time -p"
 alias empty="truncate --size 0"
 alias dc="docker compose"
+alias sc="systemctl"
 
 cheat () {
     joined_args=$(echo "$@" | tr ' ' '-')
