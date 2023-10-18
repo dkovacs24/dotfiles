@@ -33,7 +33,7 @@ alias chmod="chmod -c --preserve-root"
 alias chown="chown -c --preserve-root"
 alias chgrp="chgrp -c --preserve-root"
 
-# """""Custom""""" and shorter shorter
+# """""Custom""""" and shorter commands
 alias wtfismyip="echo 'IPv4'; curl -sS -m 5 https://ipv4.yaml.myip.wtf; echo; echo 'IPv6'; curl -sS -m 5 https://ipv6.yaml.myip.wtf"
 ls_params="-lFh --time-style=long-iso --color=auto"
 alias la="ls -a $ls_params"
