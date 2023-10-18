@@ -48,7 +48,7 @@ alias lsports="netstat -tulanp"
 alias time="/usr/bin/time -p"
 alias empty="truncate --size 0"
 alias dc="docker compose"
-alias sc="systemctl"
+alias sc="sudo systemctl"
 
 cheat () {
     joined_args=$(echo "$@" | tr ' ' '-')
