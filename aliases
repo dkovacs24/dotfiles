@@ -56,10 +56,10 @@ cheat () {
 }
 
 update-mirrors () {
-    if [[ ! -z $(command -v rate-mirrors) && ! -z $(command -v pacman) ]]; then
+    if [[ $(command -v rate-mirrors) && $(command -v pacman) ]]; then
         rate-mirrors --protocol https --entry-country HU arch | sudo tee /etc/pacman.d/mirrorlist
     else
-        echo "Install rate-mirrors or you don't have pacman"
+        echo "You don't have either rate-mirrors or pacman or both."
     fi
 }
 
