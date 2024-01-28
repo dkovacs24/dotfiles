@@ -9,7 +9,7 @@ alias cd..="cd .." # fix/prevent cd mishaps
 #shopt -s autocd
 
 # Make a directory, then go there
-if [[ $(echo $SHELL | grep "zsh") ]]; then
+if [[ "$ZSH" == *".oh-my-zsh" ]]; then
     unalias md #incase oh-my-zsh adds another md alias and this md func throws an exception
 fi
 md () {
@@ -28,7 +28,7 @@ alias mv="mv -iv"
 alias cp="cp -iv"
 alias ln="ln -iv"
 ## Preventing changes on /
-alias rm="rm -I --preserve-root"
+alias rm="rm -Iv --preserve-root"
 alias chmod="chmod -c --preserve-root"
 alias chown="chown -c --preserve-root"
 alias chgrp="chgrp -c --preserve-root"
@@ -53,6 +53,19 @@ alias sc="sudo systemctl"
 cheat () {
     joined_args=$(echo "$@" | tr ' ' '-')
     curl -sS cheat.sh/$joined_args
+}
+
+ipinfo () {
+    for ip in "$@"; do
+        if [[ "$ip" =~ '^([0-9]{1,3}\.){3}[0-9]{1,3}$' ]]; then
+            URL="https://ipinfo.io/$ip"
+            echo $URL
+            curl -sSL "$URL" | jq 'del(.readme)'
+        else
+            echo "Invalid IP address: $ip"
+        fi
+    done
+
 }
 
 update-mirrors () {
