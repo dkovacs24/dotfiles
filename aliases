@@ -22,7 +22,7 @@ alias df="df -h --exclude=squashfs"
 alias grep="grep --color=auto"
 alias wget="wget -c"
 alias mkdir="mkdir -pv"
-alias diff="diff -W $(tput cols)"
+alias diff="diff -W \$(tput cols)"
 ## confirmation
 alias mv="mv -iv"
 alias cp="cp -iv"
@@ -52,14 +52,15 @@ alias sc="sudo systemctl"
 
 cheat () {
     joined_args=$(echo "$@" | tr ' ' '-')
-    curl -sS cheat.sh/$joined_args
+    curl -sS "cheat.sh/$joined_args"
 }
 
 ipinfo () {
+    ip_regex="^([0-9]{1,3}\.){3}[0-9]{1,3}$"
     for ip in "$@"; do
-        if [[ "$ip" =~ '^([0-9]{1,3}\.){3}[0-9]{1,3}$' ]]; then
+        if [[ "$ip" =~ $ip_regex ]]; then
             URL="https://ipinfo.io/$ip"
-            echo $URL
+            echo "$URL"
             curl -sSL "$URL" | jq 'del(.readme)'
         else
             echo "Invalid IP address: $ip"
@@ -72,7 +73,7 @@ update-mirrors () {
     if [[ $(command -v rate-mirrors) && $(command -v pacman) ]]; then
         rate-mirrors --protocol https --entry-country HU arch | sudo tee /etc/pacman.d/mirrorlist
     else
-        echo "You don't have either rate-mirrors or pacman or both."
+        echo "Either the 'rate-mirrors' command, the 'pacman' command, or both are not installed or cannot be found."
     fi
 }
 
