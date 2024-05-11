@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # include in .bashrc or .zshrc with `source /path/to/this/file`
 
 # most of the stuff is from https://pastebin.com/hZzV308p
@@ -7,15 +9,6 @@ alias cd..="cd .." # fix/prevent cd mishaps
 
 # auto cd TODO: add zsh version
 #shopt -s autocd
-
-# Make a directory, then go there
-if [[ "$ZSH" == *".oh-my-zsh" ]]; then
-    unalias md #incase oh-my-zsh adds another md alias and this md func throws an exception
-fi
-md () {
-    test -n "$1" || return
-    mkdir -pv "$1" && cd "$1"
-}
 
 # Default parameters
 alias df="df -h --exclude=squashfs"
@@ -42,17 +35,26 @@ alias l="la"
 alias c="clear"
 alias h="history"
 alias j="jobs -l"
-alias back="cd $OLDPWD"
-alias lsmount="mount | column -t"
+alias back="cd \$OLDPWD"
+alias lsmount="mount | grep -v docker | column -t"
 alias lsports="netstat -tulanp"
-alias time="/usr/bin/time -p"
+alias time="/usr/bin/time -- "
 alias empty="truncate --size 0"
 alias dc="docker compose"
 alias sc="sudo systemctl"
 
+# Make a directory, then go there
+if [[ "$ZSH" == *".oh-my-zsh" ]]; then
+    unalias md >/dev/null 2>&1 #incase oh-my-zsh adds another md alias and this md func throws an exception
+fi
+md () {
+    test -n "$1" || return
+    mkdir -pv "$1" && cd "$1"
+}
+
 cheat () {
     joined_args=$(echo "$@" | tr ' ' '-')
-    curl -sS "cheat.sh/$joined_args"
+    curl -sSL "https://cheat.sh/$joined_args"
 }
 
 ipinfo () {
