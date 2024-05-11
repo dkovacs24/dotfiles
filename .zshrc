@@ -61,6 +61,7 @@ zstyle ':omz:update' frequency 7
 # or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
 HIST_STAMPS="%F_%T"
+setopt HIST_IGNORE_SPACE
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -88,11 +89,12 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-    export EDITOR='vim'
-else
-    export EDITOR='mvim'
-fi
+# if [[ -n $SSH_CONNECTION ]]; then
+#     export EDITOR='vim'
+# else
+#     export EDITOR='mvim'
+# fi
+export EDITOR=vim
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -106,14 +108,15 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-
-setopt HIST_IGNORE_SPACE
-
-if [[ -f ~/aliases ]]; then
+if [[ -f ~/aliases.sh ]]; then
+    source ~/aliases.sh
+elif [[ -f ~/aliases ]]; then
     source ~/aliases
 fi
 
-if [[ -f ~/aliases.local ]]; then
+if [[ -f ~/aliases.local.sh ]]; then
+    source ~/aliases.local.sh
+elif [[ -f ~/aliases.local ]]; then
     source ~/aliases.local
 fi
 
