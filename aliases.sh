@@ -57,7 +57,7 @@ cheat () {
     curl -sSL "https://cheat.sh/$joined_args"
 }
 
-ipinfo () {
+_ipinfo () {
     ip_regex="^([0-9]{1,3}\.){3}[0-9]{1,3}$"
     for ip in "$@"; do
         if [[ "$ip" =~ $ip_regex ]]; then
@@ -70,6 +70,9 @@ ipinfo () {
     done
 
 }
+if ! command -v ipinfo &>/dev/null; then
+    alias ipinfo="_ipinfo"
+fi
 
 update-mirrors () {
     if [[ $(command -v rate-mirrors) && $(command -v pacman) ]]; then
