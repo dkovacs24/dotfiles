@@ -74,6 +74,10 @@ if ! command -v ipinfo &>/dev/null; then
     alias ipinfo="_ipinfo"
 fi
 
+randstring () {
+    cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c "${1:-16}"; echo
+}
+
 update-mirrors () {
     if [[ $(command -v rate-mirrors) && $(command -v pacman) ]]; then
         rate-mirrors --protocol https --entry-country HU arch | sudo tee /etc/pacman.d/mirrorlist
